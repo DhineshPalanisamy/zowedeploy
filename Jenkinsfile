@@ -2,25 +2,43 @@ pipeline {
          agent any
          environment {
         z_cred = credentials('MainframeID')
+        PATH="C://Users//Administrator//AppData//Roaming//npm//node_modules//newman//bin//newman:$PATH"
          }
          stages {
-                 stage('BIND') {
+                 stage('BIND Test region') {
                  steps {
-                     echo 'Dhinesh Testing for bind'
-                     //echo $(env.USER)
-                      bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(bind) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW"
+                     echo 'bind in test region'                    
+                      bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl.srce(bind2) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW --ru false"
                        }
                  }
-                 stage('CICS INSTALL') {
+                 stage('CICS INSTALL in test region') {
                  steps {
-                     echo 'Dhinesh Testing for cics'
-                      bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe cics install program cgbmsrg cbsgrp --region-name cicsts54"
+                     echo 'installing programs in cics'
+                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe cics install program cbsrgdbb cbsgrp --region-name cicsts54"                    
                        }
                  }
-                  stage('API Testing') {
+                 stage('API TESTING in test region') {
                  steps {
-                     echo 'Dhinesh Testing for APIs'
-                        bat 'C://Users//Administrator//AppData//Roaming//npm//newman.cmd run --disable-unicode https://www.getpostman.com/collections/35a2bc7d0fd3c6ae5992 --insecure'
+                     echo 'Testing for API'
+                       bat 'C://Users//Administrator//AppData//Roaming//npm//newman.cmd run --disable-unicode https://www.getpostman.com/collections/35a2bc7d0fd3c6ae5992 --insecure'
+                       }
+                 }
+	        stage('WAZI VPT Test Playback for CICS') {
+                 steps {
+                     echo 'Playback for cics'
+                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(bzuaplay) --vasc"
+                       }
+                 }
+	       stage('WAZI VPT Test Playback for Batch') {
+                 steps {
+                     echo 'Playback for Batch'            
+                      bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(bzsbatp) --vasc"
+                       }
+                 }
+                 stage('COPY DATASET to PROD') {
+                 steps {
+                     echo 'Copying to prod hlq'
+                       //bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(copypds) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW"
                        }
                  }
            }
