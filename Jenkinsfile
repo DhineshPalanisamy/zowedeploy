@@ -38,7 +38,7 @@ pipeline {
                  stage('COPY DATASET to PROD') {
                  steps {
                      echo 'Copying to prod hlq'
-                       //bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(copypds) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW"
+                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl(copypds) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW"
                        }
                  }
            }
