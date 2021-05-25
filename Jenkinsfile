@@ -1,5 +1,7 @@
 pipeline {
-         agent any
+         agent  { 
+                label 'master'
+                }
          environment {
         z_cred = credentials('MainframeID')
         PATH="C://Users//Administrator//AppData//Roaming//npm//node_modules//newman//bin//newman:$PATH"
