@@ -28,7 +28,7 @@ pipeline {
 	        stage('WAZI VPT Test Playback for API Service') {
                  steps {
                      echo 'Playback for cics'
-                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl.srce(bzuzplay) --vasc"
+                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl.srce(bzuzplay) --vasc --host 192.86.33.94 --port 10443 --user $z_cred_USR --pass $z_cred_PSW --ru false"
                        }
                  }
 	       stage('WAZI VPT Test Playback for Batch') {
