@@ -22,13 +22,13 @@ pipeline {
                  stage('API TESTING in test region') {
                  steps {
                      echo 'Testing for API'
-                       bat 'C://Users//Administrator//AppData//Roaming//npm//newman.cmd run --disable-unicode https://www.getpostman.com/collections/35a2bc7d0fd3c6ae5992 --insecure'
+                       //bat 'C://Users//Administrator//AppData//Roaming//npm//newman.cmd run --disable-unicode https://www.getpostman.com/collections/35a2bc7d0fd3c6ae5992 --insecure'
                        }
                  }
-	        stage('WAZI VPT Test Playback for CICS') {
+	        stage('WAZI VPT Test Playback for API Service') {
                  steps {
                      echo 'Playback for cics'
-                       //bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl.srce(bzuzplay) --vasc"
+                       bat "C://Users/ADMINISTRATOR//AppData//Roaming//npm//zowe zos-jobs submit data-set cbs.zcon.jcl.srce(bzuzplay) --vasc"
                        }
                  }
 	       stage('WAZI VPT Test Playback for Batch') {
